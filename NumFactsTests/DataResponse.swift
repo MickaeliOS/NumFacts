@@ -14,9 +14,11 @@ class DataResponse {
         guard let url = bundle.url(forResource: "fact", withExtension: "json") else {
             fatalError("Failed to locate fact.json in bundle.")
         }
+
         guard let data = try? Data(contentsOf: url) else {
             fatalError("Failed to load fact.json from bundle.")
         }
+
         return data
     }()
 

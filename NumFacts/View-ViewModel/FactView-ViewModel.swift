@@ -14,12 +14,16 @@ extension FactView {
         @Published var number: String = ""
         @Published var fact: Fact?
         @Published var errorMessage: String?
+        @Published var loadingFact = false
 
         lazy var numberPublisher: AnyPublisher<Result<Fact, APIService.APIServiceError>, Never> = {
             $number
                 .map { [weak self] number in
                     if number.isReallyEmpty {
                         self?.fact = nil
+                        self?.loadingFact = false
+                    } else {
+                        self?.loadingFact = true
                     }
 
                     return number
@@ -44,9 +48,11 @@ extension FactView {
                 .map { result -> Fact? in
                     switch result {
                     case .failure:
+                        self.loadingFact = false
                         return nil
 
                     case .success(let fact):
+                        self.loadingFact = false
                         return fact
                     }
                 }

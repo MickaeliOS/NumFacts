@@ -25,11 +25,13 @@ struct FactView: View {
                 if let errorMessage = viewModel.errorMessage {
                     CustomTextView(message: errorMessage,
                                    width: geometry.size.width * 0.8,
-                                   height: geometry.size.height * 0.3)
+                                   height: geometry.size.height * 0.3,
+                                   loadingFact: $viewModel.loadingFact)
                 } else {
                     CustomTextView(message: viewModel.fact?.text,
                                    width: geometry.size.width * 0.8,
-                                   height: geometry.size.height * 0.3)
+                                   height: geometry.size.height * 0.3,
+                                   loadingFact: $viewModel.loadingFact)
                 }
 
                 Spacer()
